@@ -31,8 +31,8 @@ export default function SignInPage() {
                             elements: {
                                 rootBox: "w-full",
                                 card: "bg-transparent shadow-none border-none w-full p-0",
-                                headerTitle: "",
-                                headerSubtitle: "",
+                                headerTitle: "hidden",
+                                headerSubtitle: "hidden",
                                 socialButtonsBlockButton: "!bg-gray-600 !text-black hover:!bg-gray-900 border border-gray-300 shadow-md transition-all",
                                 formButtonPrimary: "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 transition-all",
                                 footerActionText: "text-slate-400",
