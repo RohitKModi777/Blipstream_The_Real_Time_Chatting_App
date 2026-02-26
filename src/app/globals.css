@@ -101,7 +101,7 @@
   --border: oklch(0.25 0.03 260 / 20%);
   --input: oklch(0.25 0.03 260 / 30%);
   --ring: oklch(0.6 0.2 280);
-  
+
   --sidebar: oklch(0.11 0.02 260);
   --sidebar-foreground: oklch(0.9 0.01 260);
   --sidebar-primary: oklch(0.6 0.2 280);
@@ -118,33 +118,66 @@
 }
 
 .bg-premium-dark {
-    background: radial-gradient(circle at top left, var(--bg-gradient-via), transparent 70%),
-                radial-gradient(circle at bottom right, var(--bg-gradient-from), var(--bg-gradient-to));
+  --bg-color: #f8fafc;
+  --grid-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(circle at 0% 0%, var(--bg-glow-color, rgba(99, 102, 241, 0.08)) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, var(--bg-glow-color, rgba(168, 85, 247, 0.08)) 0%, transparent 50%),
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  background-attachment: fixed;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .bg-premium-dark {
+  --bg-color: #020617;
+  --grid-color: rgba(255, 255, 255, 0.03);
 }
 
 .theme-purple {
-    --bg-gradient-via: oklch(0.2 0.1 290);
-    --primary: oklch(0.65 0.2 290);
-    --ring: oklch(0.65 0.2 290);
+  --bg-glow-color: rgba(168, 85, 247, 0.25);
+  --primary: #a855f7;
+  --surface: rgba(88, 28, 135, 0.1);
 }
 
 .theme-blue {
-    --bg-gradient-via: oklch(0.2 0.1 250);
-    --primary: oklch(0.6 0.15 250);
-    --ring: oklch(0.6 0.15 250);
+  --bg-glow-color: rgba(59, 130, 246, 0.25);
+  --primary: #3b82f6;
+  --surface: rgba(30, 58, 138, 0.1);
 }
 
 .theme-emerald {
-    --bg-gradient-via: oklch(0.2 0.08 160);
-    --primary: oklch(0.65 0.15 160);
-    --ring: oklch(0.65 0.15 160);
+  --bg-glow-color: rgba(16, 185, 129, 0.25);
+  --primary: #10b981;
+  --surface: rgba(6, 78, 59, 0.1);
+}
+
+:root {
+  --surface: rgba(255, 255, 255, 0.85);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --bubble-received: #ffffff;
+  --bubble-received-border: rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  --surface: rgba(15, 23, 42, 0.5);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --bubble-received: rgba(255, 255, 255, 0.05);
+  --bubble-received-border: rgba(255, 255, 255, 0.05);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen selection:bg-purple-500/30 font-sans;
   }
 }
