@@ -1,0 +1,62 @@
+# Blipstream - Comprehensive Code & Architecture Breakdown
+
+This file provides a line-by-line explanation of the core logic and how the project's components are "wire-connected" to each other.
+
+---
+
+## 1. Sidebar.tsx (The Brain of the App)
+This component lives in `src/components/sidebar/Sidebar.tsx`.
+
+- **Lines 19-21**: `useState` is used to track what you type in the search box and if the "New Group" modal is open.
+- **Lines 23-30**: `useQuery` connects to Convex. Each time the database changes (new user, new message), these lines AUTOMATICALLY update the UI. No refreshing needed.
+- **Lines 36-46 (handleUserClick)**:
+  - This is a "Redirector." It asks Convex to find a chat with the person you searched for.
+  - If a chat exists, it grabs the ID. If not, it creates one.
+  - Then it uses `router.push` to physically move your browser to that chat's unique URL.
+- **Line 51**: Sets the Sidebar width (`w-80`) and applies `backdrop-blur`. This gives it the "Glassmorphism" look where you can see the theme's colors glowing behind the sidebar.
+
+---
+
+## 2. MessageBubble.tsx (The Visual Heart)
+Located in `src/components/chat/MessageBubble.tsx`.
+
+- **Line 33 (isOwn)**: Compares the message sender's ID with your logged-in ID. If they match, the message floats RIGHT; if not, it floats LEFT.
+- **Lines 125-131 (The Style Engine)**:
+  - We use `cn(...)` (Classname helper) to pick colors dynamically.
+  - `isOwn ? "bg-gradient-to-br..."` -> If it's your message, give it the Purple/Indigo gradient.
+  - `: "bg-[var(--bubble-received)]..."` -> If it's a received message, use the CSS Variable we defined. This is what allows it to change color when you switch from Light to Dark mode.
+- **Lines 157-159**: Calls `formatMessageTime`. This converts raw database numbers (like 1700000) into human text (like "10:15 AM").
+
+---
+
+## 3. ThemeSwitcher.tsx (The Designer)
+Located in `src/components/theme/ThemeSwitcher.tsx`.
+
+- **Line 31 (useTheme)**: Grabs the controller from `next-themes`. This handles the actual engine for Light/Dark mode.
+- **Lines 35-42 (useEffect)**: When you refresh the page, this "re-remembers" your settings. It looks at `localStorage` (your browser's tiny memory) and applies your favorite Background Style immediately.
+- **Lines 44-57 (handleBgChange)**:
+  - This is the "Cleaner." When you pick a new theme (like Blue), it loops through all others and removes them from the Page Body so the colors don't mix.
+  - It then adds the new class (e.g., `theme-blue`) to the very top `<html>` element.
+
+---
+
+## 4. globals.css (The Style Source)
+Located in `src/app/globals.css`.
+
+- **Lines 50-83 (:root)**: These are the "Default Colors" (Light Mode).
+- **Lines 85-118 (.dark)**: These are the "Override Colors" (Dark Mode). When you click 'Dark' in the menu, the app injects these values into the variables.
+- **Lines 120-137 (.bg-premium-dark)**: This is the "Engine" for the background. It uses `radial-gradient` to create those soft glowing circles you see in the corners. It's set to `fixed` so the glows stay in place while you scroll your messages.
+
+---
+
+## 5. How everything attaches together (The Flow)
+
+1. **THE USER**: Clicks a User in the Sidebar.
+2. **THE SIDEBAR**: Creates/finds a `ConversationID` and pushes it to the URL (`/chat/123`).
+3. **THE PAGE**: `src/app/chat/[id]/page.tsx` grabs that `123` from the URL.
+4. **THE QUERY**: It uses that ID to ask Convex: "Give me all messages for ID 123."
+5. **THE RENDER**: The `MessageList` loops through those messages and draws a `MessageBubble` for each one.
+6. **THE THEME**: The `MessageBubble` looks at the `ThemeSwitcher`'s current setting to decide if it should be dark Navy or clean White.
+
+---
+*End of Line-by-Line Breakdown*
