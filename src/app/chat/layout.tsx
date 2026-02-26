@@ -33,7 +33,7 @@ export default function ChatLayout({
     }, [setOnlineStatus]);
 
     return (
-        <div className="h-screen flex bg-slate-950 bg-premium-dark text-white overflow-hidden relative">
+        <div className="h-screen flex bg-premium-dark text-foreground overflow-hidden relative">
             <div className={cn(
                 "h-full w-full md:w-80 lg:w-96 flex-shrink-0 transition-all duration-300 md:relative md:block",
                 conversationId ? "hidden md:block" : "block"
