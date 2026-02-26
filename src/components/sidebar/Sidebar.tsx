@@ -34,23 +34,29 @@ export function Sidebar() {
     );
 
     const handleUserClick = async (userId: Id<"users">) => {
-        const convId = await getOrCreateConversation({ otherUserId: userId });
-        setSearchQuery("");
-        router.push(`/chat/${convId}`);
+        console.log("User clicked:", userId);
+        try {
+            const convId = await getOrCreateConversation({ otherUserId: userId });
+            console.log("Conversation created/found:", convId);
+            setSearchQuery("");
+            router.push(`/chat/${convId}`);
+        } catch (error) {
+            console.error("Error creating conversation:", error);
+        }
     };
 
     const isSearching = searchQuery.length > 0;
 
     return (
-        <aside className="w-full md:w-80 lg:w-96 flex flex-col border-r border-slate-800 bg-slate-900 h-full">
+        <aside className="w-full md:w-80 lg:w-96 flex flex-col border-r border-white/5 bg-[var(--surface,rgba(15,23,42,0.4))] backdrop-blur-xl h-full relative z-20">
             {/* Header */}
-            <div className="p-4 border-b border-slate-800">
+            <div className="p-4 border-b border-border">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
                             <MessageSquarePlus className="w-4 h-4 text-white" />
                         </div>
-                        <h1 className="text-xl font-bold text-white">Messages</h1>
+                        <h1 className="text-xl font-bold text-foreground">Messages</h1>
                     </div>
                     <div className="flex items-center gap-2">
                         <ThemeSwitcher />
@@ -60,7 +66,7 @@ export function Sidebar() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="text-slate-400 hover:text-white hover:bg-slate-800"
+                                        className="text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
                                         onClick={() => setIsGroupModalOpen(true)}
                                     >
                                         <Users className="w-5 h-5" />
@@ -82,22 +88,22 @@ export function Sidebar() {
 
                 {/* Search bar */}
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                         placeholder="Search people..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 bg-slate-800 border-slate-700 text-white placeholder:text-slate-400 focus-visible:ring-purple-500"
+                        className="pl-9 bg-secondary/30 border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-purple-500"
                     />
                 </div>
             </div>
 
             {/* Current user greeting */}
             {currentUser && (
-                <div className="px-4 py-2 border-b border-slate-800">
-                    <p className="text-xs text-slate-400">
+                <div className="px-4 py-2 border-b border-border">
+                    <p className="text-xs text-muted-foreground">
                         Signed in as{" "}
-                        <span className="text-purple-400 font-medium">
+                        <span className="text-purple-600 dark:text-purple-400 font-bold font-sans">
                             {currentUser.name}
                         </span>
                     </p>

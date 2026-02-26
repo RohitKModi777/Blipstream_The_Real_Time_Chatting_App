@@ -38,8 +38,8 @@ export function GroupItem({ group }: GroupItemProps) {
         <button
             onClick={() => router.push(`/chat/group/${group._id}`)}
             className={cn(
-                "w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 transition-colors text-left",
-                isActive && "bg-slate-800 border-l-2 border-purple-500"
+                "w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 active:bg-black/10 dark:active:bg-white/10 transition-all text-left",
+                isActive && "bg-black/5 dark:bg-white/10 border-l-2 border-purple-500 shadow-md dark:shadow-lg dark:shadow-black/20"
             )}
         >
             <div className="relative flex-shrink-0">
@@ -50,26 +50,26 @@ export function GroupItem({ group }: GroupItemProps) {
 
             <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                    <span className="font-medium text-white text-sm truncate">
+                    <span className="font-medium text-foreground text-sm truncate">
                         {name}
                     </span>
                     {lastMessageTime && (
-                        <span className="text-xs text-slate-400 flex-shrink-0 ml-1">
+                        <span className="text-xs text-muted-foreground flex-shrink-0 ml-1">
                             {formatConversationTime(lastMessageTime)}
                         </span>
                     )}
                 </div>
                 <div className="flex items-center justify-between mt-0.5">
                     <div className="flex items-center gap-1 min-w-0">
-                        <span className="text-[10px] bg-slate-700 text-slate-300 px-1 rounded flex-shrink-0">
+                        <span className="text-[10px] bg-secondary text-muted-foreground px-1 rounded flex-shrink-0">
                             {memberCount}
                         </span>
                         <p
                             className={cn(
                                 "text-xs truncate",
                                 lastMessage?.isDeleted
-                                    ? "text-slate-500 italic"
-                                    : "text-slate-400"
+                                    ? "text-muted-foreground italic"
+                                    : "text-muted-foreground"
                             )}
                         >
                             {previewText}

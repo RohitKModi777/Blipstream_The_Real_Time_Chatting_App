@@ -41,31 +41,31 @@ export function ConversationItem({ conversation }: ConversationItemProps) {
         <button
             onClick={() => router.push(`/chat/${conversation._id}`)}
             className={cn(
-                "w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 transition-colors text-left",
-                isActive && "bg-slate-800 border-l-2 border-purple-500"
+                "w-full flex items-center gap-3 px-4 py-3 hover:bg-black/5 dark:hover:bg-white/5 active:bg-black/10 dark:active:bg-white/10 transition-all text-left",
+                isActive && "bg-black/5 dark:bg-white/10 border-l-2 border-purple-500 shadow-md dark:shadow-lg dark:shadow-black/20"
             )}
         >
             {/* Avatar with online indicator */}
             <div className="relative flex-shrink-0">
                 <Avatar className="w-12 h-12">
                     <AvatarImage src={otherUser?.imageUrl} />
-                    <AvatarFallback className="bg-slate-700 text-white text-sm">
+                    <AvatarFallback className="bg-secondary text-foreground text-sm">
                         {otherUser?.name?.charAt(0).toUpperCase() ?? "?"}
                     </AvatarFallback>
                 </Avatar>
                 {otherUser?.isOnline && (
-                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900" />
+                    <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-border" />
                 )}
             </div>
 
             {/* Name and preview */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                    <span className="font-medium text-white text-sm truncate">
+                    <span className="font-medium text-foreground text-sm truncate">
                         {otherUser?.name ?? "Unknown"}
                     </span>
                     {lastMessageTime && (
-                        <span className="text-xs text-slate-400 flex-shrink-0 ml-1">
+                        <span className="text-xs text-muted-foreground flex-shrink-0 ml-1">
                             {formatConversationTime(lastMessageTime)}
                         </span>
                     )}
@@ -75,8 +75,8 @@ export function ConversationItem({ conversation }: ConversationItemProps) {
                         className={cn(
                             "text-xs truncate",
                             lastMessage?.isDeleted
-                                ? "text-slate-500 italic"
-                                : "text-slate-400"
+                                ? "text-muted-foreground italic"
+                                : "text-muted-foreground"
                         )}
                     >
                         {previewText}

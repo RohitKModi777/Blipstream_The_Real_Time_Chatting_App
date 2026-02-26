@@ -50,13 +50,14 @@ export function UserSearchResults({
             {results.map((user) => (
                 <button
                     key={user._id}
+                    type="button"
                     onClick={() => onUserClick(user._id)}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-800 transition-colors text-left"
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 active:bg-white/10 transition-all text-left group"
                 >
                     <div className="relative flex-shrink-0">
-                        <Avatar className="w-11 h-11">
+                        <Avatar className="w-11 h-11 border border-border group-hover:border-purple-500/50 transition-colors">
                             <AvatarImage src={user.imageUrl} />
-                            <AvatarFallback className="bg-slate-700 text-white text-sm">
+                            <AvatarFallback className="bg-secondary text-foreground text-sm">
                                 {user.name.charAt(0).toUpperCase()}
                             </AvatarFallback>
                         </Avatar>
@@ -65,10 +66,13 @@ export function UserSearchResults({
                         )}
                     </div>
                     <div>
-                        <p className="text-sm font-medium text-white">{user.name}</p>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-sm font-semibold text-foreground group-hover:text-purple-400 transition-colors">{user.name}</p>
+                        <p className="text-xs text-muted-foreground">
                             {user.isOnline ? (
-                                <span className="text-green-400">● Online</span>
+                                <span className="text-green-400 flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                    Online
+                                </span>
                             ) : (
                                 "Offline"
                             )}
