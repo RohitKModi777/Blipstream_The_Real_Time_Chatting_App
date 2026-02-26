@@ -55,7 +55,7 @@ export function MessageInput({ onSend, onTyping, placeholder }: MessageInputProp
     };
 
     return (
-        <div className="px-4 py-3 border-t border-slate-800 bg-slate-900">
+        <div className="px-4 py-3 border-t border-white/5 bg-transparent backdrop-blur-md">
             {error && (
                 <div
                     onClick={handleSend}
@@ -81,8 +81,8 @@ export function MessageInput({ onSend, onTyping, placeholder }: MessageInputProp
                         placeholder={placeholder || "Type a message..."}
                         rows={1}
                         className={cn(
-                            "w-full resize-none rounded-2xl bg-slate-800 border border-slate-700 text-white",
-                            "placeholder:text-slate-400 text-sm px-4 py-3 pr-4",
+                            "w-full resize-none rounded-2xl bg-secondary/30 border border-border text-foreground",
+                            "placeholder:text-muted-foreground text-sm px-4 py-3 pr-4",
                             "focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent",
                             "max-h-32 overflow-y-auto transition-all"
                         )}

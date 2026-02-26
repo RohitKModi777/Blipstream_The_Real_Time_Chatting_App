@@ -48,10 +48,10 @@ export function MessageList({ messages, typingUsers, isGroup }: MessageListProps
 
     if (messages.length === 0) {
         return (
-            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-                <MessagesSquare className="w-12 h-12 text-slate-600 mb-4" />
-                <p className="text-slate-400 font-medium">No messages yet</p>
-                <p className="text-slate-500 text-sm mt-1">Say hello!</p>
+            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-transparent">
+                <MessagesSquare className="w-12 h-12 text-muted-foreground/40 mb-4" />
+                <p className="text-muted-foreground font-medium">No messages yet</p>
+                <p className="text-muted-foreground/60 text-sm mt-1">Say hello!</p>
             </div>
         );
     }

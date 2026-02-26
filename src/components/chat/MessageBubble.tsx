@@ -68,7 +68,7 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
                 {showAvatar ? (
                     <Avatar className="w-8 h-8">
                         <AvatarImage src={message.sender?.imageUrl} />
-                        <AvatarFallback className="bg-slate-700 text-white text-xs">
+                        <AvatarFallback className="bg-secondary text-foreground text-xs">
                             {message.sender?.name?.charAt(0).toUpperCase() ?? "?"}
                         </AvatarFallback>
                     </Avatar>
@@ -77,7 +77,7 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
 
             <div className={cn("max-w-[70%] flex flex-col", isOwn && "items-end")}>
                 {!isOwn && !isSameSenderAsPrev && (
-                    <p className="text-xs text-slate-400 mb-1 px-1">
+                    <p className="text-xs text-[var(--text-secondary)] mb-1 px-1">
                         {message.sender?.name}
                     </p>
                 )}
@@ -87,13 +87,13 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
                         <div className="relative">
                             <button
                                 onClick={() => setShowEmojiPicker((v) => !v)}
-                                className="text-slate-400 hover:text-white p-1 rounded transition-colors text-base"
+                                className="text-muted-foreground hover:text-foreground p-1 rounded transition-colors text-base"
                             >
                                 😊
                             </button>
                             {showEmojiPicker && (
                                 <div className={cn(
-                                    "absolute bottom-8 flex gap-1 bg-slate-800 rounded-full px-2 py-1 shadow-xl border border-slate-700 z-10",
+                                    "absolute bottom-8 flex gap-1 bg-popover rounded-full px-2 py-1 shadow-xl border border-border z-10",
                                     isOwn ? "right-0" : "left-0"
                                 )}>
                                     {EMOJI_LIST.map((emoji) => (
@@ -123,11 +123,11 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
                     )}
 
                     <div className={cn(
-                        "rounded-2xl px-3.5 py-2 text-sm leading-relaxed break-words shadow-sm",
+                        "rounded-2xl px-3.5 py-1.5 text-sm leading-relaxed break-words shadow-sm backdrop-blur-sm",
                         isOwn
-                            ? "bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-br-sm ml-auto"
-                            : "bg-slate-800 text-slate-100 rounded-bl-sm mr-auto",
-                        message.isDeleted && "opacity-60 italic bg-slate-900 border border-slate-800"
+                            ? "bg-gradient-to-br from-purple-600 to-indigo-600 text-white rounded-br-sm ml-auto shadow-purple-500/10"
+                            : "bg-[var(--bubble-received)] border border-[var(--bubble-received-border)] text-foreground rounded-bl-sm mr-auto",
+                        message.isDeleted && "opacity-60 italic bg-slate-900/50 border border-white/5"
                     )}>
                         {message.isDeleted
                             ? <span className="text-slate-500 text-xs">This message was deleted</span>
@@ -143,8 +143,8 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
                                 key={emoji as string}
                                 onClick={() => handleToggleReaction(emoji as string)}
                                 className={cn(
-                                    "flex items-center gap-1 bg-slate-800 border rounded-full px-2 py-0.5 text-xs hover:bg-slate-700 transition-colors",
-                                    myReactions.has(emoji as string) ? "border-purple-500 text-purple-300" : "border-slate-700 text-slate-300"
+                                    "flex items-center gap-1 bg-secondary/50 border rounded-full px-2 py-0.5 text-xs hover:bg-secondary transition-colors",
+                                    myReactions.has(emoji as string) ? "border-purple-500 text-purple-600 dark:text-purple-300" : "border-border text-muted-foreground"
                                 )}
                             >
                                 <span>{emoji as string}</span>
@@ -154,7 +154,7 @@ export function MessageBubble({ message, prevMessage, isGroup }: MessageBubblePr
                     </div>
                 )}
 
-                <span className="text-[10px] text-slate-500 mt-0.5 px-1">
+                <span className="text-[10px] text-[var(--text-secondary)] mt-0.5 px-1">
                     {formatMessageTime(message._creationTime)}
                 </span>
             </div>
