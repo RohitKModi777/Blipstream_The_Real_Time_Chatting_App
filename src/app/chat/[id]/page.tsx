@@ -33,7 +33,7 @@ export default function ConversationPage() {
 
     if (conversation === undefined || messages === undefined) {
         return (
-            <div className="flex-1 flex items-center justify-center bg-slate-950">
+            <div className="flex-1 flex items-center justify-center bg-transparent">
                 <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
             </div>
         );
@@ -41,14 +41,14 @@ export default function ConversationPage() {
 
     if (conversation === null) {
         return (
-            <div className="flex-1 flex items-center justify-center bg-slate-950">
+            <div className="flex-1 flex items-center justify-center bg-transparent">
                 <p className="text-slate-400">Conversation not found.</p>
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col h-full bg-slate-950">
+        <div className="flex flex-col h-full bg-transparent">
             <ChatHeader
                 conversation={{
                     _id: conversation._id,
